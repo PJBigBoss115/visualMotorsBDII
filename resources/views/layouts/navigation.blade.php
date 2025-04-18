@@ -15,6 +15,30 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                        {{ __('Usuarios') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('empleados.index')" :active="request()->routeIs('empleados.index')">
+                        {{ __('Empleados') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('contratos.index')" :active="request()->routeIs('contratos.index')">
+                        {{ __('Contratos') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('asistencias.index')" :active="request()->routeIs('asistencias.index')">
+                        {{ __('Asistencias') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('clientes.index')" :active="request()->routeIs('clientes.index')">
+                        {{ __('Clientes') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('facturaVentas.index')" :active="request()->routeIs('facturaVentas.index')">
+                        {{ __('Ventas') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('roles.index')" :active="request()->routeIs('roles.index')">
+                        {{ __('Roles') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('permisos.index')" :active="request()->routeIs('permisos.index')">
+                        {{ __('Permisos') }}
+                    </x-nav-link>
                 </div>
             </div>
 

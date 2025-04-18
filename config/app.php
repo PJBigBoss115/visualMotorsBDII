@@ -2,6 +2,18 @@
 
 return [
 
+    'aliases' => [
+
+        // Tener en cuenta si sucede algun error con la autenticación
+
+        'App' => Illuminate\Support\Facades\App::class,
+        'Auth' => Illuminate\Support\Facades\Auth::class,
+        'DB' => Illuminate\Support\Facades\DB::class,
+        'Route' => Illuminate\Support\Facades\Route::class,
+        'Log' => Illuminate\Support\Facades\Log::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
