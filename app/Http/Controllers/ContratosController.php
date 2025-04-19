@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
+use App\Models\Contrato;
+use App\Http\Requests\StoreContratoRequest;
+use App\Http\Requests\UpdateContratoRequest;
+use App\Models\Empleado;
 
 class ContratosController extends Controller
 {
@@ -11,7 +16,28 @@ class ContratosController extends Controller
      */
     public function index()
     {
-        //
+        return view('contratos.index');
+    }
+
+    public function getData()
+    {
+        return DataTables::of(Contrato::query())
+
+            ->addColumn('empleado', function ($contrato) {
+                $user = Empleado::find($contrato->id_empleado);
+                return $user ? $user->nombre . ' ' . $user->apellido : '';
+            })
+
+            ->addColumn('tipo', function ($contrato) {
+                return Contrato::tiposContratos()[$contrato->tipo] ?? '';
+            })
+
+            ->addColumn('acciones', function ($contrato) {
+                return '<a href="' . route('contratos.edit', $contrato->id) . '" class="text-blue-600 hover:text-blue-800">Editar</a>';
+            })
+
+            ->rawColumns(['empleado', 'acciones'])
+            ->make(true);
     }
 
     /**
@@ -19,15 +45,22 @@ class ContratosController extends Controller
      */
     public function create()
     {
-        //
+        $resp = Empleado::all()->mapWithKeys(function ($empleado) {
+            return [$empleado->id => $empleado->nombre . ' ' . $empleado->apellido];
+        });
+
+        return view('contratos.create', compact('resp'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreContratoRequest $request)
     {
-        //
+        Contrato::create($request->validated());
+
+        return redirect()->route('contratos.index')
+            ->with('success', 'Empleado creado correctamente.');
     }
 
     /**
@@ -43,15 +76,23 @@ class ContratosController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $contrato = Contrato::findOrFail($id);
+
+        $resp = Empleado::all()->mapWithKeys(function ($empleado) {
+            return [$empleado->id => $empleado->nombre . ' ' . $empleado->apellido];
+        });
+        
+        return view('contratos.edit', compact('contrato', 'resp'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateContratoRequest $request, Contrato $contrato)
     {
-        //
+        $contrato->update($request->validated());
+
+        return redirect()->route('contratos.index')->with('success', 'Empleado actualizado correctamente.');
     }
 
     /**

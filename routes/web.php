@@ -39,6 +39,11 @@ Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes.in
 
 // Contratos
 Route::get('/contratos', [ContratosController::class, 'index'])->name('contratos.index');
+Route::get('/contratos/data', [ContratosController::class, 'getData'])->name('contratos.data');
+Route::get('/contratos/create', [ContratosController::class, 'create'])->name('contratos.create');
+Route::post('/contratos', [ContratosController::class, 'store'])->name('contratos.store');
+Route::get('/contratos/{id}/edit', [ContratosController::class, 'edit'])->name('contratos.edit');
+Route::put('/contratos/{contrato}', [ContratosController::class, 'update'])->name('contratos.update');
 
 // Empleados
 Route::get('/empleados', [EmpleadosController::class, 'index'])->name('empleados.index');

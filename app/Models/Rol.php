@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Rol extends Model
 {
     protected $table = 'roles';
-    protected $primaryKey = 'id_rol';
-    public $timestamps = false;
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     protected $fillable = ['nombre', 'descripcion'];
 
@@ -19,6 +19,6 @@ class Rol extends Model
 
     public function usuarios()
     {
-        return $this->hasMany(User::class, 'id_rol');
+        return $this->hasMany(User::class, 'id');
     }
 }

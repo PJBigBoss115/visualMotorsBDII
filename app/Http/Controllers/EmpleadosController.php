@@ -59,16 +59,7 @@ class EmpleadosController extends Controller
      */
     public function store(StoreEmpleadoRequest $request)
     {
-        $empleado = new Empleado();
-
-        $empleado->nombre = $request->nombre;
-        $empleado->apellido = $request->apellido;
-        $empleado->cargo = $request->cargo;
-        $empleado->salario = $request->salario;
-        $empleado->fecha_contratacion = $request->fecha_contratacion;
-        $empleado->id_usuario = $request->id_usuario;
-
-        $empleado->save();
+        Empleado::create($request->validated());
 
         return redirect()->route('empleados.index')
             ->with('success', 'Empleado creado correctamente.');

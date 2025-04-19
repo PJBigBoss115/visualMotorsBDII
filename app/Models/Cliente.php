@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Cliente extends Model
 {
     protected $table = 'clientes';
-    protected $primaryKey = 'id_cliente';
-    public $timestamps = false;
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     protected $fillable = ['nombre', 'correo', 'telefono'];
 
     public function facturas()
     {
-        return $this->hasMany(FacturaVenta::class, 'id_cliente');
+        return $this->hasMany(FacturaVenta::class, 'id');
     }
 }
