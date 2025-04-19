@@ -8,6 +8,16 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
+            <style>
+                table.dataTable td {
+                    text-align: left !important;
+                }
+
+                table th {
+                    text-align: left !important;
+                }
+            </style>
+
             <a href="{{ route('empleados.create') }}"
                 class="inline-block bg-sky-800 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 mb-4">
                 {{ __('Crear Nuevo') }}
@@ -21,6 +31,8 @@
                             <th class="px-4 py-2 text-left text-gray-600">Cargo</th>
                             <th class="px-4 py-2 text-left text-gray-600">Salario</th>
                             <th class="px-4 py-2 text-left text-gray-600">Fecha de Contratación</th>
+                            <th class="px-4 py-2 text-left text-gray-600">Usuario</th>
+                            <th class="px-4 py-2 text-left text-gray-600"></th>
                         </tr>
                     </thead>
                 </table>
@@ -47,8 +59,18 @@
                                 name: 'salario'
                             },
                             {
-                                data: 'fecha de contratacion',
-                                name: 'fecha de contratacion'
+                                data: 'fecha_contratacion',
+                                name: 'fecha_contratacion'
+                            },
+                            {
+                                data: 'usuario',
+                                name: 'usuario'
+                            },
+                            {
+                                data: 'acciones',
+                                name: 'acciones',
+                                searchable: false,
+                                orderable: false
                             }
                         ],
                         /*language: {
@@ -69,6 +91,8 @@
 
                             $('.dt-length label')
                                 .addClass('text-sm text-gray-600');
+
+                            $('.dt-info').addClass('mt-4')
                         },
                     });
                 });

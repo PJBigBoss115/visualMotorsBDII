@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use App\Models\Empleado;
+use App\Http\Requests\StoreEmpleadoRequest;
+use App\Http\Requests\UpdateEmpleadoRequest;
+use App\Models\User;
 
 class EmpleadosController extends Controller
 {
@@ -20,10 +22,25 @@ class EmpleadosController extends Controller
     public function getData()
     {
         return DataTables::of(Empleado::query())
+
             ->addColumn('nombre_completo', function ($empleado) {
                 return $empleado->nombre . ' ' . $empleado->apellido;
             })
-            ->rawColumns(['nombre_completo'])
+
+            ->addColumn('cargo', function ($empleado) {
+                return Empleado::cargosEmpleados()[$empleado->cargo] ?? '';
+            })
+
+            ->addColumn('usuario', function ($empleado) {
+                $user = User::find($empleado->id_usuario);
+                return $user ? $user->name : '';
+            })
+
+            ->addColumn('acciones', function ($empleado) {
+                return '<a href="' . route('empleados.edit', $empleado->id) . '" class="text-blue-600 hover:text-blue-800">Editar</a>';
+            })
+
+            ->rawColumns(['nombre_completo', 'usuario', 'acciones'])
             ->make(true);
     }
 
@@ -32,15 +49,29 @@ class EmpleadosController extends Controller
      */
     public function create()
     {
-        return view('empleados.create');
+        $resp = User::all()->pluck('name', 'id');
+
+        return view('empleados.create', compact('resp'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreEmpleadoRequest $request)
     {
-        //
+        $empleado = new Empleado();
+
+        $empleado->nombre = $request->nombre;
+        $empleado->apellido = $request->apellido;
+        $empleado->cargo = $request->cargo;
+        $empleado->salario = $request->salario;
+        $empleado->fecha_contratacion = $request->fecha_contratacion;
+        $empleado->id_usuario = $request->id_usuario;
+
+        $empleado->save();
+
+        return redirect()->route('empleados.index')
+            ->with('success', 'Empleado creado correctamente.');
     }
 
     /**
@@ -56,15 +87,21 @@ class EmpleadosController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $empleado = Empleado::findOrFail($id);
+
+        $resp = User::all()->pluck('name', 'id');
+        
+        return view('empleados.edit', compact('empleado', 'resp'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateEmpleadoRequest $request, Empleado $empleado)
     {
-        //
+        $empleado->update($request->validated());
+
+        return redirect()->route('empleados.index')->with('success', 'Empleado actualizado correctamente.');
     }
 
     /**

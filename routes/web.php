@@ -44,6 +44,9 @@ Route::get('/contratos', [ContratosController::class, 'index'])->name('contratos
 Route::get('/empleados', [EmpleadosController::class, 'index'])->name('empleados.index');
 Route::get('/empleados/data', [EmpleadosController::class, 'getData'])->name('empleados.data');
 Route::get('/empleados/create', [EmpleadosController::class, 'create'])->name('empleados.create');
+Route::post('/empleados', [EmpleadosController::class, 'store'])->name('empleados.store');
+Route::get('/empleados/{id}/edit', [EmpleadosController::class, 'edit'])->name('empleados.edit');
+Route::put('/empleados/{empleado}', [EmpleadosController::class, 'update'])->name('empleados.update');
 
 // Facturas Ventas
 Route::get('/facturaVentas', [FacturaVentasController::class, 'index'])->name('facturaVentas.index');

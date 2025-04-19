@@ -57,6 +57,8 @@
 
                                 $('.dt-length label')
                                     .addClass('text-sm text-gray-600');
+
+                                $('.dt-info').addClass('mt-4')
                             },
                         });
                     });
