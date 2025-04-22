@@ -11,7 +11,7 @@ class UpdateClienteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateClienteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre' => 'nullable|string|max:255',
+            'correo' => 'nullable|email:rfc,dns|max:255',
+            'telefono' => 'nullable|regex:/^[0-9]{8}$/',
         ];
     }
 }
