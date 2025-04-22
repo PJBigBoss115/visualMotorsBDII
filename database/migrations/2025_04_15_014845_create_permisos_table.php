@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('permisos', function (Blueprint $table) {
-            $table->id('id_permiso');
-            $table->string('nombre', 100);
+            $table->id('id');
+            $table->string('nombre', 100)->nullable();
             $table->text('descripcion')->nullable();
             $table->timestamps();
         });

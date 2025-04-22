@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('contratos', function (Blueprint $table) {
-            $table->id('id_contrato');
-            $table->string('tipo', 50);
-            $table->date('fecha_inicio');
-            $table->date('fecha_fin');
-            $table->unsignedBigInteger('id_empleado');
+            $table->id('id');
+            $table->string('tipo', 50)->nullable();
+            $table->date('fecha_inicio')->nullable();
+            $table->date('fecha_fin')->nullable();
+            $table->unsignedBigInteger('id_empleado')->nullable();
             $table->timestamps();
         
-            $table->foreign('id_empleado')->references('id_empleado')->on('empleados')->onDelete('cascade');
+            $table->foreign('id_empleado')->references('id')->on('empleados')->onDelete('cascade');
         });
         
     }

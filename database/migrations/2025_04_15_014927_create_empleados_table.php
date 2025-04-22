@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('empleados', function (Blueprint $table) {
-            $table->id('id_empleado');
-            $table->string('nombre', 100);
-            $table->string('apellido', 100);
-            $table->string('cargo', 100);
-            $table->decimal('salario', 10, 2);
-            $table->date('fecha_contratacion');
-            $table->unsignedBigInteger('id_usuario')->unique();
+            $table->id('id')->nullable();
+            $table->string('nombre', 100)->nullable();
+            $table->string('apellido', 100)->nullable();
+            $table->string('cargo', 100)->nullable();
+            $table->decimal('salario', 10, 2)->nullable();
+            $table->date('fecha_contratacion')->nullable();
+            $table->unsignedBigInteger('id_usuario')->unique()->nullable();
             $table->timestamps();
         
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');

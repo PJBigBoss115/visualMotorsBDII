@@ -12,16 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('facturas_ventas', function (Blueprint $table) {
-            $table->id('id_factura');
-            $table->unsignedBigInteger('id_cliente');
-            $table->unsignedBigInteger('id_empleado');
-            $table->date('fecha');
-            $table->decimal('total', 10, 2);
-            $table->enum('tipo_pago', ['Efectivo', 'Tarjeta', 'Transferencia']);
+            $table->id('id');
+            $table->unsignedBigInteger('id_cliente')->nullable();
+            $table->unsignedBigInteger('id_empleado')->nullable();
+            $table->date('fecha')->nullable();
+            $table->decimal('total', 10, 2)->nullable();
+            $table->enum('tipo_pago', ['Efectivo', 'Tarjeta', 'Transferencia'])->nullable();
             $table->timestamps();
         
-            $table->foreign('id_cliente')->references('id_cliente')->on('clientes')->onDelete('cascade');
-            $table->foreign('id_empleado')->references('id_empleado')->on('empleados')->onDelete('cascade');
+            $table->foreign('id_cliente')->references('id')->on('clientes')->onDelete('cascade');
+            $table->foreign('id_empleado')->references('id')->on('empleados')->onDelete('cascade');
         });
         
     }
