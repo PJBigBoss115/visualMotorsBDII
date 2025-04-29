@@ -64,6 +64,12 @@ Route::get('/facturaVentas', [FacturaVentasController::class, 'index'])->name('f
 // Permisos
 Route::get('/permisos', [PermisosController::class, 'index'])->name('permisos.index');
 
+//ERROR 403
+Route::get('/probar403', function () {
+    abort(403);
+});
+
+
 // Roles
 Route::get('/roles', [RolesController::class, 'index'])->name('roles.index');
 
